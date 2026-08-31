@@ -34,7 +34,7 @@
             --border: #4B5563;
         }
 
-        /* Base Body */
+        /* Lock scroll bar */
         body, html {
             margin: 0;
             padding: 0;
@@ -47,65 +47,51 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* Fixed Top Header (Prevents overlaps) */
-        .global-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 15px;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            z-index: 1000;
-            pointer-events: none; /* Let clicks pass through empty space */
-            gap: 15px;
-        }
-
-        .global-header > * {
-            pointer-events: auto; /* Re-enable clicks for actual elements */
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
+        /* Global UI Elements */
         .theme-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
             padding: 10px 15px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(8px);
             color: var(--text);
             border: 2px solid var(--border);
             border-radius: 8px;
             cursor: pointer;
+            z-index: 1000;
             font-weight: bold;
-            flex-shrink: 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        [data-theme="dark"] .theme-toggle { background: rgba(31, 41, 55, 0.9); }
+        [data-theme="dark"] .theme-toggle { background: rgba(31, 41, 55, 0.8); }
 
         .ll-presets {
             display: none;
-            background: rgba(255, 255, 255, 0.9);
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(8px);
-            padding: 10px 15px;
+            padding: 10px;
             border-radius: 8px;
             border: 2px solid var(--border);
-            flex-wrap: wrap;
-            gap: 15px;
-            align-items: center;
+            z-index: 1000;
+            gap: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        [data-theme="dark"] .ll-presets { background: rgba(31, 41, 55, 0.9); }
-        .ll-presets.active { display: flex; }
-        .ll-presets label { font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 5px; margin: 0; }
-        .ll-presets strong { margin-right: 5px; }
+        [data-theme="dark"] .ll-presets { background: rgba(31, 41, 55, 0.8); }
+        .ll-presets.active { display: flex; flex-direction: column; }
+        .ll-presets label { font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 5px;}
 
-        /* Pages & Layout */
+        /* Pages */
         .page {
             display: none;
             width: 100%;
-            height: 100vh;
+            height: calc(100% - 80px);
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start; /* Start from top to respect padding */
-            padding: 100px 20px 100px 20px; /* Top padding clears header, bottom clears pagination */
+            justify-content: center;
+            padding: 80px 20px 20px 20px; /* Added top padding so floating buttons don't block titles */
             box-sizing: border-box;
             text-align: center;
             overflow-y: auto;
@@ -113,17 +99,17 @@
         .page.active { display: flex; }
 
         /* Typography */
-        h1 { font-size: 2rem; color: var(--primary); margin: 0 0 10px 0; }
-        h2 { font-size: 1.5rem; margin: 0 0 15px 0; }
-        p.concept { font-size: 1.1rem; max-width: 700px; line-height: 1.6; color: var(--text-muted); margin: 0 0 25px 0; }
-        ul { text-align: left; font-size: 1.1rem; line-height: 1.8; color: var(--text-muted); max-width: 600px; margin: 0 auto 25px auto; padding-left: 25px; }
+        h1 { font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem; margin-top: 0; }
+        h2 { font-size: 1.5rem; margin-bottom: 1rem; }
+        p.concept { font-size: 1.1rem; max-width: 700px; line-height: 1.6; color: var(--text-muted); margin-bottom: 1.5rem; }
+        ul { text-align: left; font-size: 1.1rem; line-height: 1.8; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
         li { margin-bottom: 10px; }
 
         /* Visualizers */
         .visualizer-container {
             display: flex;
-            gap: 15px;
-            margin: 30px 0;
+            gap: 12px;
+            margin: 20px 0;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
@@ -141,16 +127,16 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         .box.empty { border: 3px dashed var(--border); background: var(--empty); box-shadow: none; color: transparent; }
-        .box .index-label { position: absolute; bottom: -28px; font-size: 0.9rem; color: var(--text-muted); font-weight: normal; }
+        .box .index-label { position: absolute; bottom: -25px; font-size: 0.9rem; color: var(--text-muted); font-weight: normal; }
 
         /* Linked List Nodes */
-        .node-container { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+        .node-container { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
         .node {
             display: flex; border: 2px solid var(--primary); border-radius: 8px;
             background: var(--panel); overflow: hidden; height: 50px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s;
         }
-        .node .ptr { background: var(--empty); padding: 0 12px; display: flex; align-items: center; font-size: 0.8rem; border-right: 1px solid var(--border); border-left: 1px solid var(--border);}
+        .node .ptr { background: var(--empty); padding: 0 10px; display: flex; align-items: center; font-size: 0.8rem; border-right: 1px solid var(--border); border-left: 1px solid var(--border);}
         .node .data { padding: 0 20px; display: flex; align-items: center; font-weight: bold; font-size: 1.2rem; }
         .arrow { font-weight: bold; color: var(--primary); font-size: 1.5rem; transition: all 0.3s;}
         
@@ -158,10 +144,9 @@
         .stack-container {
             display: flex; flex-direction: column-reverse; gap: 5px;
             border: 4px solid var(--primary); border-top: none;
-            padding: 10px; width: 120px; height: 160px;
+            padding: 10px; width: 120px; height: 160px; /* Fixed height so it doesn't jump */
             background: var(--empty); border-radius: 0 0 12px 12px;
             justify-content: flex-start;
-            margin-bottom: 25px;
         }
         .stack-item {
             width: 100%; min-height: 40px; background: var(--primary); color: white;
@@ -175,64 +160,107 @@
         @keyframes pop { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
         .pop-in { animation: pop 0.3s ease-out; }
 
-        /* Expression Block */
+        /* Expression Block (Slide 14 fix) */
         .expr-block {
-            font-family: monospace; font-size: 1.8rem; letter-spacing: 5px;
-            min-height: 50px; display: flex; align-items: center; justify-content: center;
-            gap: 12px; margin-bottom: 25px;
+            font-family: monospace;
+            font-size: 1.8rem;
+            letter-spacing: 5px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
-        .expr-token { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 45px; border-radius: 6px; transition: all 0.3s; }
+        .expr-token {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 40px;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
 
         /* Controls */
-        .controls { display: flex; gap: 15px; margin-top: 10px; flex-wrap: wrap; justify-content: center; align-items: center; width: 100%; }
-        input { padding: 12px; font-size: 14px; width: 110px; text-align: center; border: 2px solid var(--border); border-radius: 8px; outline: none; background: var(--panel); color: var(--text); }
+        .controls { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; justify-content: center; align-items: center; }
+        input { padding: 10px; font-size: 14px; width: 100px; text-align: center; border: 2px solid var(--border); border-radius: 8px; outline: none; background: var(--panel); color: var(--text); }
         input:focus { border-color: var(--primary); }
-        button.action-btn { padding: 12px 24px; font-size: 14px; font-weight: bold; cursor: pointer; border: none; border-radius: 8px; background: var(--primary); color: white; transition: background 0.2s, transform 0.1s; }
+        button.action-btn { padding: 10px 20px; font-size: 14px; font-weight: bold; cursor: pointer; border: none; border-radius: 8px; background: var(--primary); color: white; transition: background 0.2s, transform 0.1s; }
         button.action-btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
         button.action-btn:active { transform: translateY(0); }
-        .stats { margin-top: 25px; font-size: 1.1rem; font-weight: bold; color: var(--primary); min-height: 28px; }
+        .stats { margin-top: 15px; font-size: 1rem; font-weight: bold; color: var(--primary); min-height: 24px; }
 
         /* Pagination Navigation */
-        .pagination { position: fixed; bottom: 20px; left: 0; width: 100%; display: flex; justify-content: center; align-items: center; gap: 20px; z-index: 10; pointer-events: none; }
-        .pagination > * { pointer-events: auto; }
-        .pagination button { padding: 12px 24px; font-size: 14px; cursor: pointer; border: none; border-radius: 8px; background: var(--border); color: var(--text); transition: 0.2s; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .pagination { position: fixed; bottom: 20px; width: 100%; display: flex; justify-content: center; align-items: center; gap: 20px; z-index: 10; }
+        .pagination button { padding: 10px 20px; font-size: 14px; cursor: pointer; border: none; border-radius: 8px; background: var(--border); color: var(--text); transition: 0.2s; font-weight: bold; }
         .pagination button:hover { filter: brightness(0.9); }
-        .pagination button:disabled { cursor: not-allowed; opacity: 0.5; box-shadow: none; }
-        #pageLabelContainer { width: 80px; text-align: center; background: rgba(255,255,255,0.8); backdrop-filter: blur(8px); border-radius: 8px; padding: 10px 0; }
-        [data-theme="dark"] #pageLabelContainer { background: rgba(31,41,55,0.8); }
+        .pagination button:disabled { cursor: not-allowed; opacity: 0.5; }
+        #pageLabelContainer { width: 80px; text-align: center; }
         #pageLabel { font-size: 1.1rem; font-weight: bold; transition: opacity 0.3s ease-out; }
 
         /* Toast Notifications */
         .toast {
-            position: fixed; top: 80px; left: 50%; transform: translateX(-50%) translateY(-20px);
-            background: var(--error); color: white; padding: 15px 30px; border-radius: 8px;
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-20px);
+            background: var(--error); color: white; padding: 12px 24px; border-radius: 8px;
             font-weight: bold; font-size: 1rem; opacity: 0; pointer-events: none;
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 2000;
-            box-shadow: 0 10px 15px rgba(239, 68, 68, 0.3);
         }
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-        /* Mobile Adjustments */
+        /* Mobile adjustments */
         @media (max-width: 600px) {
-            .global-header { flex-direction: column-reverse; align-items: center; padding: 10px; gap: 10px; }
-            .ll-presets { justify-content: center; width: 100%; padding: 10px; }
-            .theme-toggle { width: 100%; text-align: center; }
-            .page { padding-top: 170px; padding-bottom: 120px; } /* Extra room for stacked header on mobile */
-            .visualizer-container { gap: 10px; margin: 20px 0; }
+            .theme-toggle { top: 8px; right: 8px; padding: 6px 10px; font-size: 0.85rem; }
+            .ll-presets { top: 8px; left: 8px; padding: 8px; gap: 6px; }
+            .ll-presets label { font-size: 0.8rem; gap: 4px; }
+
+            .page {
+                height: calc(100% - 60px);
+                padding: 60px 12px 12px 12px;
+            }
+
+            h1 { font-size: 1.4rem; margin-bottom: 0.3rem; }
+            h2 { font-size: 1.1rem; margin-bottom: 0.6rem; }
+            p.concept { font-size: 0.95rem; margin-bottom: 1rem; max-width: 100%; }
+            ul { font-size: 0.95rem; line-height: 1.5; max-width: 100%; }
+            li { margin-bottom: 6px; }
+
+            .visualizer-container { gap: 8px; margin: 12px 0; min-height: 60px; }
+
+            .box { width: 44px; height: 44px; font-size: 1.1rem; border-radius: 8px; }
+            .box .index-label { bottom: -20px; font-size: 0.75rem; }
+
+            .node-container { gap: 6px; margin-bottom: 6px; }
+            .node { height: 38px; }
+            .node .ptr { padding: 0 6px; font-size: 0.7rem; }
+            .node .data { padding: 0 12px; font-size: 1rem; }
+            .arrow { font-size: 1.1rem; }
+
+            .stack-container { width: 90px; height: 130px; padding: 6px; gap: 4px; }
+            .stack-item { min-height: 32px; font-size: 0.9rem; }
+
+            .expr-block { font-size: 1.2rem; letter-spacing: 2px; gap: 6px; min-height: 40px; }
+            .expr-token { width: 26px; height: 32px; }
+
+            .controls { gap: 6px; margin-top: 12px; }
+            input { padding: 8px; font-size: 13px; width: 80px; }
+            button.action-btn { padding: 8px 14px; font-size: 13px; }
+            .stats { margin-top: 10px; font-size: 0.9rem; }
+
+            .pagination { bottom: 10px; gap: 10px; }
+            .pagination button { padding: 8px 14px; font-size: 13px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="global-header">
-        <div class="ll-presets" id="llPresets">
-            <strong>Linked List Type:</strong>
-            <label><input type="radio" name="llType" value="single" checked onchange="changeLLType()"> Singly</label>
-            <label><input type="radio" name="llType" value="double" onchange="changeLLType()"> Doubly</label>
-            <label><input type="radio" name="llType" value="circular" onchange="changeLLType()"> Circular</label>
-            <label><input type="radio" name="llType" value="double_circular" onchange="changeLLType()"> Double Circular</label>
-        </div>
-        <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+
+    <div class="ll-presets" id="llPresets">
+        <strong>Linked List Type:</strong>
+        <label><input type="radio" name="llType" value="single" checked onchange="changeLLType()"> Singly</label>
+        <label><input type="radio" name="llType" value="double" onchange="changeLLType()"> Doubly</label>
+        <label><input type="radio" name="llType" value="circular" onchange="changeLLType()"> Circular</label>
+        <label><input type="radio" name="llType" value="double_circular" onchange="changeLLType()"> Double Circular</label>
     </div>
 
     <div id="toast" class="toast">Error Message</div>
@@ -303,7 +331,7 @@
             <li><strong>Node:</strong> An element containing <em>Data</em> and a <em>Pointer</em> (next, and optionally prev).</li>
         </ul>
         <div class="visualizer-container ll-vis"></div>
-        <p class="concept">Use the preset menu at the top to see different list variations!</p>
+        <p class="concept">Use the preset menu top-left on the next slides to see different list variations!</p>
     </div>
 
     <div class="page">
@@ -384,7 +412,7 @@
     <div class="page">
         <h1>Stack Implementations</h1>
         <p class="concept">Stacks can be built using Arrays (fixed/dynamic size) or Linked Lists (dynamic size). The behavior (LIFO) remains exactly the same.</p>
-        <div class="visualizer-container" style="gap: 50px; margin-bottom: 0;">
+        <div class="visualizer-container" style="gap: 50px;">
             <div>
                 <h3>Array Rep.</h3>
                 <div class="stack-container" id="stackArrVis" style="border-radius:0;"></div>
@@ -394,7 +422,7 @@
                 <div class="visualizer-container" id="stackLlVis" style="flex-direction: column; gap: 5px; min-height: 160px; justify-content: flex-start; margin: 0; padding-top: 10px;"></div>
             </div>
         </div>
-        <div class="controls" style="margin-top: 20px;">
+        <div class="controls">
             <button class="action-btn" onclick="stackImplDemo()">Push Item to Both</button>
         </div>
     </div>
@@ -815,7 +843,7 @@
             document.getElementById('statsLimit').innerText = "Popped successfully.";
         }
 
-        // --- EXPRESSION PROCESSING ---
+        // --- EXPRESSION PROCESSING FIX (Slide 14) ---
         const exprTokens = ['4', '5', '*', '2', '-']; 
         let exprSteps = [
             {t:'push', v:4, d:"Push 4"}, {t:'push', v:5, d:"Push 5"},
@@ -912,7 +940,7 @@
         renderStack();
         renderImpl();
         renderLimit();
-        renderExprDisplay(); 
+        renderExprDisplay(); // Init the clean token display
         updatePagination();
     </script>
 </body>
